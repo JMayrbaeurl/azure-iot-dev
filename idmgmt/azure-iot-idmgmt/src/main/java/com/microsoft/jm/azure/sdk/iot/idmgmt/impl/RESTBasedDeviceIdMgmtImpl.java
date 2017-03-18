@@ -266,6 +266,13 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 	}
 	
 	/**
+	 * @return the httpClient
+	 */
+	public final HttpClient getHttpClient() {
+		return httpClient;
+	}
+
+	/**
 	 * @return the jsonObjectMapper
 	 */
 	public final ObjectMapper getJsonObjectMapper() {
