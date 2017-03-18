@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.microsoft.azure.sdk.iot.idmgmt.impl;
+package com.microsoft.jm.azure.sdk.iot.idmgmt.impl;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.azure.sdk.iot.idmgmt.DeviceId;
-import com.microsoft.azure.sdk.iot.idmgmt.DeviceIdentitiesRESTApi;
-import com.microsoft.azure.sdk.iot.idmgmt.DeviceIdentityManagement;
-import com.microsoft.azure.sdk.iot.idmgmt.DeviceIdentityManagementException;
-import com.microsoft.azure.sdk.iot.idmgmt.UnauthorizedException;
+import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceId;
+import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentitiesRESTApi;
+import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement;
+import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagementException;
+import com.microsoft.jm.azure.sdk.iot.idmgmt.UnauthorizedException;
 
 /**
  * @author jurgenma
@@ -74,7 +74,7 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 	}
 
 	/* (non-Javadoc)
-	 * @see com.microsoft.azure.sdk.iot.idmgmt.DeviceIdentityManagement#createDeviceIdentity()
+	 * @see com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement#createDeviceIdentity()
 	 */
 	@Override
 	public void createDeviceIdentity() {
@@ -83,7 +83,7 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 	}
 
 	/* (non-Javadoc)
-	 * @see com.microsoft.azure.sdk.iot.idmgmt.DeviceIdentityManagement#GetDevices()
+	 * @see com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement#GetDevices()
 	 */
 	@Override
 	public List<DeviceId> getDevices() {

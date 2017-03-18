@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.microsoft.azure.sdk.iot.idmgmt;
+package com.microsoft.jm.azure.sdk.iot.idmgmt;
 
 import java.util.List;
 

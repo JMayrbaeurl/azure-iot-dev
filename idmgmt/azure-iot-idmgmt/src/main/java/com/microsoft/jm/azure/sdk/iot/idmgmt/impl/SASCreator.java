@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.microsoft.azure.sdk.iot.idmgmt.impl;
+package com.microsoft.jm.azure.sdk.iot.idmgmt.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

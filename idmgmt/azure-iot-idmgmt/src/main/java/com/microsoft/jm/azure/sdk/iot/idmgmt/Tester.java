@@ -1,8 +1,8 @@
-package com.microsoft.azure.sdk.iot.idmgmt;
+package com.microsoft.jm.azure.sdk.iot.idmgmt;
 
 import java.io.IOException;
 
-import com.microsoft.azure.sdk.iot.idmgmt.impl.RESTBasedDeviceIdMgmtImpl;
+import com.microsoft.jm.azure.sdk.iot.idmgmt.impl.RESTBasedDeviceIdMgmtImpl;
 
 public class Tester {
 

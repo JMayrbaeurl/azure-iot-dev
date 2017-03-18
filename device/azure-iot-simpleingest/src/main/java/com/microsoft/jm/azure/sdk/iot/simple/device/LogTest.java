@@ -1,4 +1,4 @@
-package com.microsoft.azure.sdk.iot.simple.device;
+package com.microsoft.jm.azure.sdk.iot.simple.device;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
