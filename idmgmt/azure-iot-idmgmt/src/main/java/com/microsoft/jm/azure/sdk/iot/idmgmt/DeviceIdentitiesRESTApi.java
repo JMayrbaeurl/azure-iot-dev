@@ -13,6 +13,10 @@ public final class DeviceIdentitiesRESTApi {
 	
 	public static final String GETDEVICES_COMMAND = "devices";
 	
+	public static final String CREATEDEVICE_COMMAND = "devices";
+	
+	public static final String CREATEDEVICES_COMMAND = "devices";
+	
 	/**
 	 * 
 	 */

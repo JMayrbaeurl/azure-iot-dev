@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.http.Consts;
+import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -17,6 +19,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -73,13 +77,77 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 		this.sharedAccessPolickey = policykey;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement#createDeviceIdentity()
-	 */
 	@Override
-	public void createDeviceIdentity() {
-		// TODO Auto-generated method stub
+	public void createDevices(final List<String> stringIds) {
 
+		logger.trace("Now calling 'createDevices' on IoT Hub for {}", this.iothubName);
+
+		this.checkSetup();
+		
+		List<DeviceId> ids = new ArrayList<>();
+		for(int i = 0; i < stringIds.size(); i++)
+			ids.add(new DeviceId(stringIds.get(i)));
+		ObjectMapper mapper = this.createJsonObjectMapper();
+		
+		HttpResponse response = null;
+		try {
+			String idsString = mapper.writeValueAsString(ids);
+
+			HttpUriRequest request = this.createHttpRequest(HttpPost.METHOD_NAME,
+					DeviceIdentitiesRESTApi.CREATEDEVICES_COMMAND);
+			((HttpEntityEnclosingRequest)request).setEntity(new StringEntity(idsString,
+			        ContentType.create("application/json", Consts.UTF_8)));
+			
+			response = this.httpClient.execute(request);
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				
+			} else
+				this.handleNonOKStatusCode(response);
+		} catch (Exception ex) {
+			logger.error("Exception on trying to get all device ids from IoT Hub", ex);
+			
+			 if (!(ex instanceof DeviceIdentityManagementException))
+				 throw new RuntimeException(ex);
+		} finally {
+				this.closeHttpResponseQuietly(response);
+		}
+	}
+	
+	@Override
+	public DeviceId createDeviceIdentity(final String deviceId) {
+		
+		logger.trace("Now calling 'createDevice' on IoT Hub for {}", this.iothubName);
+
+		this.checkSetup();
+
+		DeviceId result = null;
+		ObjectMapper mapper = this.createJsonObjectMapper();
+		
+		HttpResponse response = null;
+		try {
+			DeviceId id = new DeviceId(deviceId);
+			String idString = mapper.writeValueAsString(id);
+
+			HttpUriRequest request = this.createHttpRequest(HttpPut.METHOD_NAME,
+					DeviceIdentitiesRESTApi.CREATEDEVICE_COMMAND + "/" + deviceId);
+			((HttpEntityEnclosingRequest)request).setEntity(new StringEntity(idString,
+			        ContentType.create("application/json", Consts.UTF_8)));
+			
+			response = this.httpClient.execute(request);
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+				result = mapper.readValue(response.getEntity().getContent(), new TypeReference<DeviceId>() {});
+			} else
+				this.handleNonOKStatusCode(response);
+		} catch (Exception ex) {
+			logger.error("Exception on trying to create device id '"+ deviceId + "' on IoT Hub", ex);
+			
+			 if (!(ex instanceof DeviceIdentityManagementException))
+				 throw new RuntimeException(ex);
+		} finally {
+				this.closeHttpResponseQuietly(response);
+		}
+		
+		return result;
 	}
 
 	/* (non-Javadoc)
