@@ -16,6 +16,10 @@ public abstract class AbstractIoTHubAccessingTest {
 	
 	protected final String testDeviceId = "createdTestDeviceId";
 	
+	protected final String idOfExistingDeviceInTestSetup = "testdevice001";
+	
+	protected final String idOfNonExistingDeviceInTestSetup = "thisDeviceReallyDoesntExistHere783";
+	
 	public AbstractIoTHubAccessingTest() {
 	}
 

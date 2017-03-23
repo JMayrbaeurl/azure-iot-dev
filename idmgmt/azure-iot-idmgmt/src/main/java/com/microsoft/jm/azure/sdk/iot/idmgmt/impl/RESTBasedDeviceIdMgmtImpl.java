@@ -213,6 +213,48 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 	}	
 
 	/* (non-Javadoc)
+	 * @see com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement#getDevice(java.lang.String)
+	 */
+	@Override
+	public DeviceId getDevice(final String deviceId) {
+
+		logger.trace("Now calling 'getDevice' on IoT Hub {} for {}", this.iothubName, deviceId);
+		
+		if (StringUtils.isEmpty(deviceId)) {
+			logger.error("getDevice called with empty string value for deviceId");
+			
+			throw new IllegalArgumentException("getDevice called with empty string value for deviceId");
+		}
+		
+		this.checkSetup();
+
+		DeviceId result = null;
+		HttpResponse response = null;
+		try {
+			response = this.httpClient.execute(this.createHttpRequest(HttpGet.METHOD_NAME,
+					DeviceIdentitiesRESTApi.GETDEVICE_COMMAND + "/" + deviceId));
+			
+			if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {		
+				ObjectMapper mapper = this.createJsonObjectMapper();
+				result = mapper.readValue(response.getEntity().getContent(), new TypeReference<DeviceId>() {});
+			} else if (response.getStatusLine().getStatusCode() != HttpStatus.SC_NOT_FOUND) {
+				this.handleNonOKStatusCode(response);
+			}
+		} catch(Exception ex) {
+			logger.error("Exception on trying to get device with id '" + deviceId + "'", ex);
+		
+			 if (!(ex instanceof DeviceIdentityManagementException))
+				 throw new RuntimeException(ex);
+			 else
+				 throw (DeviceIdentityManagementException)ex;
+		} finally {
+			this.closeHttpResponseQuietly(response);
+		}
+		
+		return result;
+	}
+
+	/* (non-Javadoc)
 	 * @see com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement#GetDevices()
 	 */
 	@Override
@@ -250,6 +292,8 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 		
 			 if (!(ex instanceof DeviceIdentityManagementException))
 				 throw new RuntimeException(ex);
+			 else
+				 throw (DeviceIdentityManagementException)ex;
 		} finally {
 			this.closeHttpResponseQuietly(response);
 		}
@@ -307,7 +351,7 @@ public class RESTBasedDeviceIdMgmtImpl implements DeviceIdentityManagement, Clos
 			
 			response = this.httpClient.execute(request);
 			if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK 
-					&& response.getStatusLine().getStatusCode() != 204)
+					&& response.getStatusLine().getStatusCode() != HttpStatus.SC_NO_CONTENT)
 				this.handleNonOKStatusCode(response);
 		} catch (Exception ex) {
 			logger.error("Exception on trying to delete device id '"+ id.getDeviceId() + "' on IoT Hub", ex);

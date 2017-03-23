@@ -20,5 +20,6 @@ public interface DeviceIdentityManagement {
 	public void deleteDeviceIdentity(String deviceId);
 	public void deleteDeviceIdentity(DeviceId deviceId);
 	
+	public DeviceId getDevice(String deviceId);
 	public List<DeviceId> getDevices();
 }
