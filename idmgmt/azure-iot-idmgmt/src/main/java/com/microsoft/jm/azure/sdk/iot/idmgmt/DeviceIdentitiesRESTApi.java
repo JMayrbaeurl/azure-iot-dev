@@ -17,6 +17,10 @@ public final class DeviceIdentitiesRESTApi {
 	
 	public static final String CREATEDEVICES_COMMAND = "devices";
 	
+	public static final String DELETEDEVICE_COMMAND = "devices";
+	
+	public static final int DEFAULT_HTTP_TIMOUT_MS = 24000;
+	
 	/**
 	 * 
 	 */

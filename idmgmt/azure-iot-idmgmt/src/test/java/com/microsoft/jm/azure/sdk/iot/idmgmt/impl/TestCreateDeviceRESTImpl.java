@@ -1,7 +1,5 @@
 package com.microsoft.jm.azure.sdk.iot.idmgmt.impl;
 
-import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Test;
@@ -19,14 +17,13 @@ public class TestCreateDeviceRESTImpl extends AbstractIoTHubAccessingTest {
 		Assume.assumeTrue("Test skipped. No valid Iot Hub configuration available", this.hasValidIotHubConfiguration());
 		
 		RESTBasedDeviceIdMgmtImpl idManager = this.createInstance();
-		DeviceId result = idManager.createDeviceIdentity("createdTestDeviceId");
-		
 		try {
-			idManager.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-		
-		Assert.assertNotNull(result);
+			DeviceId result = idManager.createDeviceIdentity(this.testDeviceId);
+			try {
+				Assert.assertNotNull(result);
+			} finally {
+				idManager.deleteDeviceIdentity(this.testDeviceId);
+			}
+		} finally { this.closeInstanceQuietly(idManager);}
 	}
 }

@@ -14,6 +14,8 @@ public abstract class AbstractIoTHubAccessingTest {
 	
 	protected String iothubPolicyname;
 	
+	protected final String testDeviceId = "createdTestDeviceId";
+	
 	public AbstractIoTHubAccessingTest() {
 	}
 
@@ -45,5 +47,14 @@ public abstract class AbstractIoTHubAccessingTest {
 	protected boolean hasValidIotHubConfiguration() {
 		
 		return this.iothubname != null && this.iothubPolicyname != null && this.iothubPolicykey != null;
+	}
+	
+	protected void closeInstanceQuietly(RESTBasedDeviceIdMgmtImpl idManager) {
+		
+		try {
+			idManager.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
