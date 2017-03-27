@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microsoft.jm.azure.sdk.iot.core.SASCreator;
 import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceId;
 import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentitiesRESTApi;
 import com.microsoft.jm.azure.sdk.iot.idmgmt.DeviceIdentityManagement;

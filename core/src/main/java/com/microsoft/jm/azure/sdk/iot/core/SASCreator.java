@@ -1,7 +1,8 @@
+package com.microsoft.jm.azure.sdk.iot.core;
+
 /**
  * 
  */
-package com.microsoft.jm.azure.sdk.iot.idmgmt.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -117,3 +118,4 @@ public class SASCreator {
 		return hMacSha256.doFinal(textToSign);
 	}
 }
+

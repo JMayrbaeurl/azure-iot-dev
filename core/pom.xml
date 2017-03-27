@@ -1,0 +1,57 @@
+<!-- Copyright (c) Microsoft. All rights reserved. --><!-- Licensed under the MIT license. See LICENSE file in the project root
+	for full license information. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.microsoft.azure.sdk.iot</groupId>
+	<artifactId>jm-azure-iot-core</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>IoT Hub Java SDK core library</name>
+	<packaging>jar</packaging>
+
+	<properties>
+		<apache-httpclient-version>4.5.3</apache-httpclient-version>
+		<jackson.version>2.7.0</jackson.version>
+		<commons-codec.version>1.9</commons-codec.version>
+		<commons-lang.version>3.5</commons-lang.version>
+		<java-version>1.7</java-version>
+		<junit.version>4.12</junit.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
+		<dependency>
+    			<groupId>junit</groupId>
+    			<artifactId>junit</artifactId>
+    			<version>${junit.version}</version>
+    			<scope>test</scope>
+  		</dependency>
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+					<configuration>
+						<source>${java-version}</source>
+						<target>${java-version}</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
